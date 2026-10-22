@@ -1,0 +1,37 @@
+Feature ID,Feature,Demo status,Scope and next step
+BK-001,Event type dashboard,Simulated in this browser,Search and event cards
+BK-002,Create event types,Simulated in this browser,Durations 15/30/45/60/90
+BK-003,Weekly availability,Simulated in this browser,"UTC recurring hours; configurable notice, horizon and meeting gap"
+BK-004,Guest date selection,Simulated in this browser,60-day window
+BK-005,IANA timezone display,Simulated in this browser,UTC-date grouping explicit
+BK-006,Available time slots,Simulated in this browser,30-minute starts; configurable notice and horizon
+BK-007,Unavailable time display,Simulated in this browser,Fictional busy blocks in static mode
+BK-008,Alternative time suggestion,Simulated in this browser,Search up to 15 days
+BK-009,Attendee booking form,Simulated in this browser,Fictional data only
+BK-010,Confirmation,Simulated in this browser,No emails sent
+BK-011,Time-expiring links,Simulated in this browser,Fictional browser-only behavior; no shared or production enforcement
+BK-012,Single-use links,Simulated in this browser,Fictional browser-only behavior; no shared or production enforcement
+BK-013,Multi-use limits,Simulated in this browser,Fictional browser-only behavior; no shared or production enforcement
+BK-014,Link revocation,Simulated in this browser,Fictional browser-only behavior; no shared or production enforcement
+BK-015,Cross-link conflict checks,Simulated in this browser,Fictional browser-only behavior; no shared or production enforcement
+BK-016,Separate management authority,Simulated in this browser,Fictional browser-only behavior; no shared or production enforcement
+BK-017,Rescheduling,Simulated in this browser,Conflict preserves original
+BK-018,Cancellation,Simulated in this browser,Does not refund link use
+BK-019,Counterproposal capture,Simulated in this browser,"Capture with pending, accepted and rejected statuses"
+BK-020,Counterproposal acceptance,Simulated in this browser,Host accept/decline; acceptance rechecks time and consumes a use atomically
+BK-021,ICS calendar download,Simulated in this browser,Manual fictional file; no send
+BK-022,Meeting list,Simulated in this browser,Local confirmed and cancelled meetings
+BK-023,Feature registry export,Simulated in this browser,Downloadable overview of demo features and planned integrations
+BK-024,Responsive and reduced motion,Simulated in this browser,Desktop/mobile/Fold-like QA
+BK-025,Connected Google calendars,Planned,Explicitly deferred
+BK-026,Calendar sync and webhooks,Planned,Conflict reconciliation
+BK-027,Email confirmation and reminders,Planned,No real invitations in demo
+BK-028,Accounts and tenant permissions,Planned,Accounts and hosted permissions are planned
+BK-029,Public durable booking service,Planned,HTTPS/auth/abuse controls/backups
+BK-030,Host-local DST schedules,Planned,Current host schedule UTC
+BK-031,Buffers and date overrides,Simulated in this browser,Minimum gap between meetings plus closed/custom-hour date overrides
+BK-032,Team and round robin,Planned,Team conflict allocation
+BK-033,Group events and capacity,Planned,Atomic capacity reservations
+BK-034,Routing forms,Planned,Assignment and qualification
+BK-035,Payments,Planned,No purchase or credentials
+BK-036,Analytics and exports,Planned,Avoid sensitive demo data
