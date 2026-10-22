@@ -26,6 +26,10 @@ jobs:
           node --check calendar.js
           node --check mockup-model.js
           node --check mockup-studio.js
+          node --check design-system.js
+          node --check meeting-model.js
+          node --check meeting-workspace.js
+          node --check message-calendar.js
       - uses: actions/upload-pages-artifact@v3
         with:
           path: .

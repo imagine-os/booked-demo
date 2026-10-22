@@ -52,11 +52,11 @@ const Demo = (() => {
       const token=crypto.randomUUID(),link={id:id(),token,event_id:body.event_id,expires:body.hours?now()+body.hours*3600:null,max_uses:body.max_uses,uses:0,revoked:0,created:now()};
       state.links.push(link);save();return {...link,path:'?book='+token};
     }
-    if(p.startsWith('/api/slots/')||p.startsWith('/api/manage-slots/')){
+    if(p.startsWith('/api/slots/')||p.startsWith('/api/manage-slots/')||p.startsWith('/api/preview-slots/')){
       const manage=p.includes('manage-slots'),token=p.split('/').pop();
       const booking=manage?state.bookings.find(x=>x.cancel_token===token&&!x.cancelled):null;
       if(manage&&!booking)throw Error('Active simulated booking not found.');
-      const link=manage?{event_id:booking.event_id}:valid(token),event=state.events.find(x=>x.id===link.event_id);
+      const link=p.includes('preview-slots')?{event_id:Number(token)}:manage?{event_id:booking.event_id}:valid(token),event=state.events.find(x=>x.id===link.event_id);if(!event)throw Error('Event type not found.');
       const midnight=Date.parse(url.searchParams.get('day')+'T00:00:00Z')/1000,slots=[],unavailable=[];
       for(let i=0;i<48;i++){const start=midnight+i*1800,isBusy=busy(start,start+event.duration*60,booking?.id);if(open(start,event.duration)&&!isBusy)slots.push(start);else if(i>=18&&i<34)unavailable.push({start,reason:isBusy?'Fictional busy time':'Outside host availability or notice window'});}
       return {event,slots,unavailable,expires:link.expires,remaining:link.max_uses?link.max_uses-link.uses:null,timezone:'UTC',horizon_days:state.availability.horizon_days};

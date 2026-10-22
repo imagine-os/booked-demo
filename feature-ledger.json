@@ -1,0 +1,180 @@
+{
+  "version": "booked-feature-ledger/1",
+  "updated": "2026-10-22",
+  "statuses": [
+    "live-demo",
+    "built-unpublished",
+    "in-progress",
+    "planned",
+    "blocked",
+    "future-integration"
+  ],
+  "publication": {
+    "commit": "ff4803fac38dc25198baef151301589d243fbb62",
+    "deployment": "success",
+    "renderedLiveVerification": "parent browser verified prior studio; current correction unpublished"
+  },
+  "requests": [
+    {
+      "id": "PRE-001",
+      "title": "Configured invitee preview",
+      "status": "built-unpublished",
+      "route": "?workspace=1",
+      "sourceRequest": "owner-preview-purpose-2026-10-22",
+      "dependencies": [],
+      "evidence": [
+        "invitee-preview.cjs",
+        "test_booking.py"
+      ],
+      "notes": "Same guest renderer and slot rules; read-only; no link created."
+    },
+    {
+      "id": "STU-001",
+      "title": "Progress presentation studio",
+      "status": "live-demo",
+      "route": "?workspace=1&tool=mockup",
+      "sourceRequest": "owner-presentation-tool-2026-10-22",
+      "dependencies": [],
+      "evidence": [
+        "mockup-studio.cjs",
+        "mockup-model.cjs"
+      ],
+      "notes": "Existing public composition/export tool; purpose relabeling built but unpublished."
+    },
+    {
+      "id": "ART-001",
+      "title": "Transparent raster gnome replacement",
+      "status": "built-unpublished",
+      "route": "?workspace=1&tool=mockup",
+      "sourceRequest": "owner-visual-quality-2026-10-22",
+      "dependencies": [],
+      "evidence": [],
+      "notes": "Approved transparent PNG reconstructed and inspected; exact hash verified. Replaces procedural placeholder without stretching."
+    },
+    {
+      "id": "DS-001",
+      "title": "Original design system and components",
+      "status": "built-unpublished",
+      "route": "?workspace=1&tool=design-system",
+      "sourceRequest": "owner-workspace-tooling-2026-10-22",
+      "dependencies": [],
+      "evidence": [
+        "design-system.cjs",
+        "workspace-tools.cjs"
+      ],
+      "notes": "Original Booked foundations, components and patterns; footer/navigation entry pending."
+    },
+    {
+      "id": "REL-001",
+      "title": "Relational event workspace",
+      "status": "built-unpublished",
+      "route": "?workspace=1&tool=meetings-workspace",
+      "sourceRequest": "owner-workspace-tooling-2026-10-22",
+      "dependencies": [],
+      "evidence": [
+        "meeting-model.cjs",
+        "workspace-tools.cjs"
+      ],
+      "notes": "Fictional attendees and Watcher/Doer/Lead/Lead & Doer roles; linked tasks/files/recordings/transcripts."
+    },
+    {
+      "id": "REL-002",
+      "title": "Attendee conflict checks and common times",
+      "status": "built-unpublished",
+      "route": "?workspace=1&tool=meetings-workspace",
+      "sourceRequest": "owner-workspace-tooling-2026-10-22",
+      "dependencies": [
+        "REL-001"
+      ],
+      "evidence": [
+        "meeting-model.cjs",
+        "workspace-tools.cjs"
+      ],
+      "notes": "Uses mock busy intervals; no real calendar lookup."
+    },
+    {
+      "id": "VIEW-001",
+      "title": "Calendar, table, list, timeline and Kanban views",
+      "status": "built-unpublished",
+      "route": "?workspace=1&tool=meetings-workspace",
+      "sourceRequest": "owner-workspace-tooling-2026-10-22",
+      "dependencies": [
+        "REL-001"
+      ],
+      "evidence": [
+        "workspace-tools.cjs"
+      ],
+      "notes": "Bounded views over the same relational demo data."
+    },
+    {
+      "id": "MAIL-001",
+      "title": "Mail and messages calendar",
+      "status": "built-unpublished",
+      "route": "?workspace=1&tool=messages",
+      "sourceRequest": "owner-workspace-tooling-2026-10-22",
+      "dependencies": [],
+      "evidence": [
+        "workspace-tools.cjs"
+      ],
+      "notes": "Separate bonus module, fictional content only; no connected inbox."
+    },
+    {
+      "id": "CORE-001",
+      "title": "Booking and calendar demo",
+      "status": "live-demo",
+      "route": "?workspace=1",
+      "sourceRequest": "owner-booking-calendar-2026-10-22",
+      "dependencies": [],
+      "evidence": [
+        "browser.cjs",
+        "calendar.cjs"
+      ],
+      "notes": "Fictional browser simulation. Local SQLite enforcement is separate from static demo."
+    },
+    {
+      "id": "INT-001",
+      "title": "Real calendars, identity and invitations",
+      "status": "future-integration",
+      "route": null,
+      "sourceRequest": "owner-no-deeper-integrations-2026-10-22",
+      "dependencies": [],
+      "evidence": [],
+      "notes": "Deferred; requires production authentication and durable shared enforcement."
+    },
+    {
+      "id": "HOME-001",
+      "title": "Homepage theme and art-level controls",
+      "status": "planned",
+      "route": "?",
+      "sourceRequest": "owner-homepage-polish-2026-10-22",
+      "dependencies": [
+        "ART-001"
+      ],
+      "evidence": [],
+      "notes": "Persistent light/dark and Simple / Graphics / Real 3D controls. Follow current checked preview/design-system release."
+    },
+    {
+      "id": "HOME-002",
+      "title": "Interactive real 3D homepage option",
+      "status": "planned",
+      "route": "?",
+      "sourceRequest": "owner-homepage-polish-2026-10-22",
+      "dependencies": [
+        "HOME-001"
+      ],
+      "evidence": [],
+      "notes": "Must render real interactive geometry with reduced-motion/performance fallback; raster images must not be labeled 3D."
+    },
+    {
+      "id": "HOME-003",
+      "title": "Honest shipped-version history",
+      "status": "planned",
+      "route": "?",
+      "sourceRequest": "owner-homepage-polish-2026-10-22",
+      "dependencies": [],
+      "evidence": [],
+      "notes": "Reference actual known shipped source/artifact checkpoints; no invented versions or completion percentage."
+    }
+  ],
+  "statusAsOf": "Checked source before deployment; published artifact status is recorded in the release receipt."
+}

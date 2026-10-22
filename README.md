@@ -66,19 +66,31 @@ Use a fictional name and an `example.test` email address. No email is sent. Keep
 
 To let a friend explore, share the homepage after it is hosted. Each browser gets its own fictional workspace; a guest link from one browser does not create a shared reservation in another. Clear this site’s browser storage to reset demo activity.
 
-## A little studio for your screenshots
+## Preview the invitation
 
-Open **Mockup studio** in the workspace for a separate, browser-local three-step tool:
+Choose **What your invitee sees** on an event card. The read-only preview uses that saved event, duration and current availability through the same guest booking screen. Desktop and phone viewports preserve their proportions. Trying dates and timezone display creates no booking link or reservation. Link policies are set separately when sharing.
+
+## Presentation tools for progress updates
+
+Open **Progress studio** under **Presentation tools** for project screenshots and updates. This secondary browser-local composition tool is separate from the accurate invitee preview:
 
 1. Choose a theme, brand name, colors, logo, and optional character image.
 2. Place screenshots in exact-ratio desktop, phone, tablet, or watch viewports. The smart speaker stays screenless. Use Contain for the full image, or adjust an explicit Cover crop without stretching.
 3. Export a PNG and a reusable JSON layout. Image bytes are excluded from JSON by default; including them is an explicit sharing choice.
 
-<img src="assets/mockup-studio.jpg" alt="Actual Booked mockup studio with a three-step control panel, original 2D gnome cue, independent device screens, watch, and screenless speaker. All visible content is fictional." width="100%">
+<img src="assets/mockup-studio.jpg" alt="Actual Booked mockup studio with a three-step control panel, polished transparent raster gnome, independent device screens, watch, and screenless speaker. All visible content is fictional." width="100%">
 
 Uploads stay in the current tab's memory. Nothing is uploaded to a server, and this tool adds no calendar integration. It exports a **2D composition and editable JSON**, not a 3D mesh. Generic viewport presets are not manufacturer-certified hardware specifications. Logo and character images use Contain and remain separate from the screenshots.
 
 [Sample JSON template](mockup-template.json) · Default viewports: desktop 1920×1080, phone 390×844, tablet 1024×768, watch 198×242. A limited converter accepts front-on design-kit manifests, reports skipped disabled laptop instances, and rejects perspective scenes or invalid geometry. Missing image bytes require local reattachment. SVG image uploads and remote image URLs are not accepted.
+
+## Connected planning, fictional context
+
+**Event workspace** offers list, table, calendar, timeline and task Kanban views over the same local relational data. Assign fictional people as Watcher, Doer, Lead or Lead & Doer; check mock availability, reject conflicting times and choose a common suggestion. Linked task creation and progress work locally. File/recording entries are metadata samples and transcript text is fictional. Planning events do not reserve booking slots.
+
+**Messages · demo** is a separate received-time calendar/list for fictional mail and messages. No inbox is connected and no messages are sent.
+
+[Design system & component library](?workspace=1&tool=design-system) · [Feature ledger JSON](feature-ledger.json). Homepage theme, art-level controls and shipped-version history are planned in the ledger; the raster illustration is not an editable 3D object.
 
 ## Room to grow
 

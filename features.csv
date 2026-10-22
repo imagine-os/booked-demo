@@ -50,3 +50,15 @@ STU-002,Exact device screenshot slots,Working browser-local tool,Desktop phone t
 STU-003,Browser-local image assets,Working browser-local tool,Local logo character and screenshot decoding; no image upload service
 STU-004,Reusable JSON templates,Working browser-local tool,Stable slots geometry colors and optional embedded raster assets; front-on kit adapter
 STU-005,PNG scene export,Working browser-local tool,1x and 2x export with optional transparent background; original 2D illustration
+PRE-001,Read-only configured invitee preview,Working browser-local tool,Uses actual event and shared slot rules without creating links or bookings
+ART-001,Transparent raster gnome replacement,Simulated in this browser,Approved transparent PNG reconstructed and inspected; exact hash verified. Replaces procedural placeholder without stretching.
+DS-001,Original design system and components,Simulated in this browser,"Original Booked foundations, components and patterns; footer/navigation entry pending."
+REL-001,Relational event workspace,Simulated in this browser,Fictional attendees and Watcher/Doer/Lead/Lead & Doer roles; linked tasks/files/recordings/transcripts.
+REL-002,Attendee conflict checks and common times,Simulated in this browser,Uses mock busy intervals; no real calendar lookup.
+VIEW-001,"Calendar, table, list, timeline and Kanban views",Simulated in this browser,Bounded views over the same relational demo data.
+MAIL-001,Mail and messages calendar,Simulated in this browser,"Separate bonus module, fictional content only; no connected inbox."
+CORE-001,Booking and calendar demo,Planned,Fictional browser simulation. Local SQLite enforcement is separate from static demo.
+INT-001,"Real calendars, identity and invitations",Planned,Deferred; requires production authentication and durable shared enforcement.
+HOME-001,Homepage theme and art-level controls,Planned,Persistent light/dark and Simple / Graphics / Real 3D controls. Follow current checked preview/design-system release.
+HOME-002,Interactive real 3D homepage option,Planned,Must render real interactive geometry with reduced-motion/performance fallback; raster images must not be labeled 3D.
+HOME-003,Honest shipped-version history,Planned,Reference actual known shipped source/artifact checkpoints; no invented versions or completion percentage.
