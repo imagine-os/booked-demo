@@ -10,9 +10,9 @@
     "future-integration"
   ],
   "publication": {
-    "commit": "c0262343c43d49a14108217f04ec5c69691d3061",
+    "commit": "1a69003b5a50035fda8ba42f7ae8ab5a4f6c0101",
     "deployment": "success",
-    "renderedLiveVerification": "Parent browser verified prior tools release; current homepage appearance work unpublished."
+    "renderedLiveVerification": "Appearance, previews, history and routes verified live; a reported browser uses the Real 3D fallback. Cause under investigation."
   },
   "requests": [
     {
@@ -144,7 +144,7 @@
     {
       "id": "HOME-001",
       "title": "Homepage theme and art-level controls",
-      "status": "built-unpublished",
+      "status": "live-demo",
       "route": "?",
       "sourceRequest": "owner-homepage-polish-2026-10-22",
       "dependencies": [
@@ -159,7 +159,7 @@
     {
       "id": "HOME-002",
       "title": "Interactive real 3D homepage option",
-      "status": "built-unpublished",
+      "status": "live-demo",
       "route": "?",
       "sourceRequest": "owner-homepage-polish-2026-10-22",
       "dependencies": [
@@ -169,12 +169,12 @@
         "homepage-appearance.cjs",
         "home-art-3d.cjs"
       ],
-      "notes": "Actual interactive WebGL geometry with perspective, depth, pointer/touch/keyboard input, no idle animation and explicit graphics fallback."
+      "notes": "Deployed WebGL geometry renders locally; a reported browser uses fallback. Cause awaits stage-specific live diagnostic readout."
     },
     {
       "id": "HOME-003",
       "title": "Honest shipped-version history",
-      "status": "built-unpublished",
+      "status": "live-demo",
       "route": "?",
       "sourceRequest": "owner-homepage-polish-2026-10-22",
       "dependencies": [],
@@ -187,7 +187,7 @@
     {
       "id": "NAV-001",
       "title": "Shareable workspace routes and history navigation",
-      "status": "built-unpublished",
+      "status": "live-demo",
       "route": "?workspace=1",
       "sourceRequest": "owner-live-navigation-qa-2026-10-22",
       "dependencies": [],
@@ -195,6 +195,21 @@
         "homepage-appearance.cjs"
       ],
       "notes": "Synchronize supported tool/event routes, deep links and browser Back/Forward."
+    },
+    {
+      "id": "HOME-004",
+      "title": "3D initialization diagnostics and compatible-context recovery",
+      "status": "built-unpublished",
+      "route": "?",
+      "sourceRequest": "owner-real3d-completion-2026-10-22",
+      "dependencies": [
+        "HOME-002"
+      ],
+      "evidence": [
+        "home-3d-diagnostics.cjs",
+        "home-3d-normal-browser.json"
+      ],
+      "notes": "Visible module/version/path/stage/error diagnostics, bounded context fallback, matched shader precision and manual retry. Does not assume the cloud-browser failure is GPU unavailability."
     }
   ],
   "statusAsOf": "Checked source before deployment; published artifact status is recorded in the release receipt."
