@@ -23,6 +23,7 @@ jobs:
           node --check static-app.js
           node --check demo.js
           node --check marketing.js
+          node --check calendar.js
       - uses: actions/upload-pages-artifact@v3
         with:
           path: .

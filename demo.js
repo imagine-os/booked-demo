@@ -9,6 +9,7 @@ const Demo = (() => {
   try {state=JSON.parse(localStorage.getItem(key))||initial();} catch {state=initial();}
   state.availability={notice_minutes:60,horizon_days:60,buffer_minutes:0,overrides:{},...state.availability};
   state.proposals.forEach(p=>p.status=p.status||'pending');
+  state.calendar_items=state.calendar_items||[];
   const save=()=>{localStorage.setItem(key,JSON.stringify(state));};
   const id=()=>Date.now()+Math.floor(Math.random()*10000);
   const now=()=>Date.now()/1000;
@@ -29,11 +30,22 @@ const Demo = (() => {
   const busy=(start,end,except)=>{
     const d=new Date(start*1000),h=d.getUTCHours()+d.getUTCMinutes()/60;
     const gap=state.availability.buffer_minutes*60;
-    return (h<13&&h+(end-start)/3600>12)||(d.getUTCDay()===3&&h<15&&h+(end-start)/3600>14)||state.bookings.some(x=>!x.cancelled&&x.id!==except&&x.start<end+gap&&x.end>start-gap);
+    return (h<13&&h+(end-start)/3600>12)||(d.getUTCDay()===3&&h<15&&h+(end-start)/3600>14)||state.bookings.some(x=>!x.cancelled&&x.id!==except&&x.start<end+gap&&x.end>start-gap)||state.calendar_items.some(x=>x.type==='block'&&x.start<end&&x.end>start);
   };
   return {async request(path,body){
     const url=new URL(path,'http://demo.local'),p=url.pathname;
     if(p==='/api/state')return structuredClone({...state,now:now()});
+    if(p==='/api/calendar/items'){
+      if(!['block','task','memo','chat'].includes(body.type)||!String(body.title||'').trim()||body.title.length>100||!Number.isFinite(body.start)||!Number.isFinite(body.end)||body.start>=body.end||body.end-body.start>7*86400||body.start<1577836800||body.end>4133980800)throw Error('Choose a title and valid UTC interval, at most seven days long.');
+      const gap=state.availability.buffer_minutes*60;
+      if(body.type==='block'&&(state.bookings.some(x=>!x.cancelled&&x.start<body.end+gap&&x.end>body.start-gap)||state.calendar_items.some(x=>x.type==='block'&&x.start<body.end&&x.end>body.start)))throw Error('This block overlaps a booking, meeting gap, or time block.');
+      const item={...body,title:body.title.trim(),body:String(body.body||'').slice(0,1000),id:id(),done:0};state.calendar_items.push(item);save();return {id:item.id,saved:true};
+    }
+    if(p==='/api/calendar/action'){
+      const item=state.calendar_items.find(x=>x.id===body.id);if(!item)throw Error('Calendar item not found.');
+      if(body.action==='delete')state.calendar_items=state.calendar_items.filter(x=>x.id!==body.id);
+      else if(body.action==='complete'&&item.type==='task')item.done=!item.done;else throw Error('Choose a valid calendar action.');save();return {saved:true};
+    }
     if(p==='/api/events'){const e={...body,id:id()};state.events.push(e);save();return e;}
     if(p==='/api/availability'){if(body.start_hour>=body.end_hour||!body.weekdays.length||body.notice_minutes<0||body.notice_minutes>10080||body.horizon_days<1||body.horizon_days>365||body.buffer_minutes<0||body.buffer_minutes>120)throw Error('Choose valid hours, notice, horizon, buffer and at least one weekday.');state.availability={...body,weekdays:JSON.stringify(body.weekdays)};save();return {saved:true};}
     if(p==='/api/links'){

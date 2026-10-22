@@ -35,3 +35,13 @@ BK-033,Group events and capacity,Planned,Atomic capacity reservations
 BK-034,Routing forms,Planned,Assignment and qualification
 BK-035,Payments,Planned,No purchase or credentials
 BK-036,Analytics and exports,Planned,Avoid sensitive demo data
+CAL-001,Calendar workspace,Simulated in this browser,Default workspace; original month grid
+CAL-002,"Month, 30-day, week and day",Simulated in this browser,"Today, date picker and period navigation"
+CAL-003,Unavailable time blocks,Simulated in this browser,Simulated unavailable blocks affect booking and rescheduling in this browser
+CAL-004,Calendar layer toggles,Simulated in this browser,"Events, tasks, memos and local chats independently visible"
+CAL-005,Tasks,Simulated in this browser,Create and complete local tasks; no time reservation
+CAL-006,Memos,Simulated in this browser,Local dated notes; no time reservation
+CAL-007,Local chats,Simulated in this browser,Conversation items only; no external messaging
+CAL-008,Booking calendar reflection,Simulated in this browser,Bookings and reschedules reflected after navigation or Refresh
+CAL-009,Calendar timezone labels,Simulated in this browser,IANA viewing zones; UTC block inputs; DST offsets and continuation labels
+CAL-010,Calendar accessibility,Simulated in this browser,"Keyboard controls, touch and contained mobile scrolling"
