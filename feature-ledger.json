@@ -10,12 +10,12 @@
     "future-integration"
   ],
   "publication": {
-    "commit": "88503cf39977562d5eda5ced31fbf3f51e2c05bf",
+    "commit": "05e8dd2d5166c85cb88d00af584f64bade390575",
     "deployment": "success",
-    "run": 39847449976,
+    "run": 39851706980,
     "cloud3DCause": "This browser session cannot create the context. No module-path or shader failure is indicated.",
     "live3DRotationInCloudBrowser": false,
-    "renderedLiveVerification": "Previous release live-verified; this build adds checked shared planning and editable fictional metadata. New deployment pending."
+    "renderedLiveVerification": "Earlier relational release deployed; this build contains a locally rendered procedural hat correction."
   },
   "requests": [
     {
@@ -217,7 +217,7 @@
     {
       "id": "REL-003",
       "title": "Unified planning and booking event model",
-      "status": "built-unpublished",
+      "status": "live-demo",
       "route": "?workspace=1&tool=meetings-workspace",
       "sourceRequest": "owner-workspace-tooling-2026-10-22",
       "dependencies": [
@@ -235,7 +235,7 @@
     {
       "id": "REL-004",
       "title": "User-managed linked files, recording metadata and transcripts",
-      "status": "built-unpublished",
+      "status": "live-demo",
       "route": "?workspace=1&tool=meetings-workspace",
       "sourceRequest": "owner-workspace-tooling-2026-10-22",
       "dependencies": [
@@ -248,6 +248,23 @@
         "tests/related-records.cjs"
       ],
       "notes": "Create, edit and link fictional file/recording metadata and transcript text; moving a recording carries linked transcripts. Persisted with shared planning state and undo. No media capture, real uploads or transcription service."
+    },
+    {
+      "id": "ART-002",
+      "title": "Fitted continuous gnome hat",
+      "status": "built-unpublished",
+      "route": "?",
+      "sourceRequest": "owner-character-hat-2026-10-22",
+      "dependencies": [
+        "HOME-002"
+      ],
+      "evidence": [
+        "tests/home-art-3d.cjs",
+        "tests/home-3d-diagnostics.cjs",
+        "evidence/hat-3d-before.jpg",
+        "evidence/hat-3d-after.jpg"
+      ],
+      "notes": "Procedural rigid cone, separate tip ball and mismatched brim replaced by a continuous bent crown and fitted elliptical rolled brim. Raster likeness retained unchanged."
     }
   ],
   "statusAsOf": "REL-003 and REL-004 built and integration-tested; publication pending",

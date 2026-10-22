@@ -16,7 +16,17 @@
   function patch(fn,uCount,vCount,color){for(let u=0;u<uCount;u++)for(let v=0;v<vCount;v++){const a=fn(u/uCount,v/vCount),b=fn((u+1)/uCount,v/vCount),c=fn((u+1)/uCount,(v+1)/vCount),d=fn(u/uCount,(v+1)/vCount);triangle(a.p,b.p,c.p,a.n,b.n,c.n,color);triangle(a.p,c.p,d.p,a.n,c.n,d.n,color);}}
   function sphere(center,scale,color,segments=18,rings=10){patch((u,v)=>{const phi=u*Math.PI*2,theta=v*Math.PI,n=[Math.sin(theta)*Math.cos(phi),Math.cos(theta),Math.sin(theta)*Math.sin(phi)];return {p:n.map((x,i)=>center[i]+x*scale[i]),n:normalize(n.map((x,i)=>x/scale[i]))};},segments,rings,color);}
   function roundedBox(center,size,radius,color){const half=size.map(x=>x/2);radius=Math.min(radius,...half);const inner=half.map(x=>Math.max(0,x-radius));for(let axis=0;axis<3;axis++)for(const sign of[-1,1]){const a=(axis+1)%3,b=(axis+2)%3;patch((u,v)=>{const q=[0,0,0];q[axis]=half[axis]*sign;q[a]=(u*2-1)*half[a];q[b]=(v*2-1)*half[b];const base=q.map((x,i)=>Math.max(-inner[i],Math.min(inner[i],x))),n=normalize(q.map((x,i)=>x-base[i]));return {p:base.map((x,i)=>center[i]+x+n[i]*radius),n};},4,4,color);}}
-  function cone(center,height,radius,color){const sides=26;for(let i=0;i<sides;i++){const a=i/sides*Math.PI*2,b=(i+1)/sides*Math.PI*2,pa=[center[0]+radius*Math.cos(a),center[1],center[2]+radius*Math.sin(a)],pb=[center[0]+radius*Math.cos(b),center[1],center[2]+radius*Math.sin(b)],tip=[center[0]-.12,center[1]+height,center[2]],na=normalize([Math.cos(a),radius/height,Math.sin(a)]),nb=normalize([Math.cos(b),radius/height,Math.sin(b)]);triangle(pa,pb,tip,na,nb,normalize(na.map((x,j)=>(x+nb[j])/2)),color);triangle(pa,[...center],pb,[0,-1,0],[0,-1,0],[0,-1,0],color);}}
+  function fittedHat(){
+   // One continuous tapered crown, bending into its tip instead of a cone + detached ball.
+   // Each section is perpendicular to the centreline, so the fold stays round when rotated.
+   const sections=[[-1.23,.075,.35,.285],[-1.24,.25,.32,.265],[-1.28,.49,.265,.225],[-1.28,.70,.20,.175],[-1.23,.86,.14,.125],[-1.13,.92,.10,.09],[-1.02,.90,.065,.060],[-.96,.83,.035,.032],[-.97,.785,.004,.004]];
+   function profile(v){const q=Math.min(sections.length-1,Math.max(0,v)*(sections.length-1)),i=Math.min(sections.length-2,Math.floor(q)),t=q-i,p0=sections[Math.max(0,i-1)],p1=sections[i],p2=sections[i+1],p3=sections[Math.min(sections.length-1,i+2)];return p1.map((x,j)=>.5*((2*x)+(-p0[j]+p2[j])*t+(2*p0[j]-5*x+4*p2[j]-p3[j])*t*t+(-p0[j]+3*x-3*p2[j]+p3[j])*t*t*t));}
+   function point(u,v){const c=profile(v),lo=profile(Math.max(0,v-.0005)),hi=profile(Math.min(1,v+.0005)),tangent=normalize([hi[0]-lo[0],hi[1]-lo[1],0]),a=u*Math.PI*2,r=Math.max(.003,c[2]),z=Math.max(.003,c[3]);return [c[0]+tangent[1]*r*Math.cos(a),c[1]-tangent[0]*r*Math.cos(a),.30+z*Math.sin(a)];}
+   patch((u,v)=>{const p=point(u,v),a=point(u+.0005,v),b=point(u,Math.min(1,v+.0005)),back=v===1?point(u,v-.0005):p,du=a.map((x,i)=>x-p[i]),dv=b.map((x,i)=>x-back[i]);return {p,n:normalize([dv[1]*du[2]-dv[2]*du[1],dv[2]*du[0]-dv[0]*du[2],dv[0]*du[1]-dv[1]*du[0]])};},28,32,'green');
+   // Rolled elliptical brim follows the head and crown footprint in both axes.
+   patch((u,v)=>{const a=u*Math.PI*2,b=v*Math.PI*2,n=[Math.cos(a)*Math.cos(b),Math.sin(b),Math.sin(a)*Math.cos(b)];return {p:[-1.23+.35*Math.cos(a)+.055*n[0],.055+.055*n[1],.30+.285*Math.sin(a)+.055*n[2]],n};},28,8,'green');
+   for(let i=0;i<28;i++){const u=i/28,next=(i+1)/28;triangle(point(u,0),[-1.23,.075,.30],point(next,0),[0,-1,0],[0,-1,0],[0,-1,0],'green');triangle(point(u,1),point(next,1),[-.97,.785,.30],[0,-1,0],[0,-1,0],[0,-1,0],'green');}
+  }
   function ring(center,radius,tube,color){patch((u,v)=>{const a=u*Math.PI*2,b=v*Math.PI*2,n=[Math.sin(b),Math.cos(a)*Math.cos(b),Math.sin(a)*Math.cos(b)];return {p:[center[0]+tube*n[0],center[1]+radius*Math.cos(a)+tube*n[1],center[2]+radius*Math.sin(a)+tube*n[2]],n};},22,7,color);}
   // A low plinth and flattened geometric shadows anchor all objects in the same space.
   sphere([0,-1.25,0],[2.23,.07,1.05],'ground',28,8);
@@ -39,8 +49,7 @@
   sphere([-1.23,-.12,.32],[.29,.31,.26],'peach');sphere([-1.23,-.36,.51],[.32,.39,.17],'beard',22,12);
   sphere([-1.38,-.10,.54],[.10,.075,.10],'beard');sphere([-1.08,-.10,.54],[.10,.075,.10],'beard');
   sphere([-1.23,-.12,.67],[.105,.088,.09],'peach');
-  cone([-1.23,.04,.30],.94,.42,'green');sphere([-1.23,.04,.30],[.44,.09,.31],'green',22,10);
-  sphere([-1.35,.93,.30],[.115,.12,.11],'green');
+  fittedHat();
   // Restrained floating geometric accents preserve generous space around the object.
   sphere([1.97,.88,-.20],[.11,.11,.11],'amber');sphere([1.90,-.82,.35],[.13,.13,.13],'green');
   if(materials.length>LIMIT)throw Error('Geometry budget exceeded.');return {vertices:new Float32Array(vertices),materials,count:materials.length};
