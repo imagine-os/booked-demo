@@ -66,6 +66,20 @@ Use a fictional name and an `example.test` email address. No email is sent. Keep
 
 To let a friend explore, share the homepage after it is hosted. Each browser gets its own fictional workspace; a guest link from one browser does not create a shared reservation in another. Clear this site’s browser storage to reset demo activity.
 
+## A little studio for your screenshots
+
+Open **Mockup studio** in the workspace for a separate, browser-local three-step tool:
+
+1. Choose a theme, brand name, colors, logo, and optional character image.
+2. Place screenshots in exact-ratio desktop, phone, tablet, or watch viewports. The smart speaker stays screenless. Use Contain for the full image, or adjust an explicit Cover crop without stretching.
+3. Export a PNG and a reusable JSON layout. Image bytes are excluded from JSON by default; including them is an explicit sharing choice.
+
+<img src="assets/mockup-studio.jpg" alt="Actual Booked mockup studio with a three-step control panel, original 2D gnome cue, independent device screens, watch, and screenless speaker. All visible content is fictional." width="100%">
+
+Uploads stay in the current tab's memory. Nothing is uploaded to a server, and this tool adds no calendar integration. It exports a **2D composition and editable JSON**, not a 3D mesh. Generic viewport presets are not manufacturer-certified hardware specifications. Logo and character images use Contain and remain separate from the screenshots.
+
+[Sample JSON template](mockup-template.json) · Default viewports: desktop 1920×1080, phone 390×844, tablet 1024×768, watch 198×242. A limited converter accepts front-on design-kit manifests, reports skipped disabled laptop instances, and rejects perspective scenes or invalid geometry. Missing image bytes require local reattachment. SVG image uploads and remote image URLs are not accepted.
+
 ## Room to grow
 
 The current demo is designed to make the booking experience tangible. The next chapter needs real services and careful integration:

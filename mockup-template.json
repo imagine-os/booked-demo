@@ -1,0 +1,202 @@
+{
+  "version": "booked-mockup/1",
+  "canvas": {
+    "width": 1600,
+    "height": 1000,
+    "transparent": false,
+    "showFlow": true
+  },
+  "flow": [
+    {
+      "number": 1,
+      "label": "Make room",
+      "deviceId": "desktop"
+    },
+    {
+      "number": 2,
+      "label": "Share a link",
+      "deviceId": "tablet"
+    },
+    {
+      "number": 3,
+      "label": "You're booked",
+      "deviceId": "phone"
+    }
+  ],
+  "brand": {
+    "name": "Booked",
+    "tagline": "Make room for your good ideas.",
+    "colors": {
+      "background": "#fffef9",
+      "surface": "#f7f7f2",
+      "ink": "#2d3c58",
+      "primary": "#ffbb00",
+      "secondary": "#88bb00",
+      "frame": "#d17466"
+    },
+    "character": {
+      "id": "brand.character",
+      "assetId": null,
+      "visible": true,
+      "x": 65,
+      "y": 320,
+      "width": 220,
+      "height": 470,
+      "fit": "contain"
+    },
+    "logo": {
+      "id": "brand.logo",
+      "assetId": null,
+      "x": 85,
+      "y": 65,
+      "width": 180,
+      "height": 65,
+      "fit": "contain"
+    }
+  },
+  "devices": [
+    {
+      "id": "desktop",
+      "type": "desktop",
+      "label": "Desktop",
+      "visible": true,
+      "geometry": {
+        "x": 340,
+        "y": 245,
+        "width": 690,
+        "height": 510.16875,
+        "rotation": 0
+      },
+      "screen": {
+        "id": "desktop.screen",
+        "crop": null,
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "x": 17.25,
+        "y": 17.25,
+        "width": 655.5,
+        "height": 368.71875,
+        "radius": 7,
+        "aspect": {
+          "width": 16,
+          "height": 9
+        },
+        "fit": "contain",
+        "assetId": null
+      }
+    },
+    {
+      "id": "phone",
+      "type": "phone",
+      "label": "Phone",
+      "visible": true,
+      "geometry": {
+        "x": 1110,
+        "y": 300,
+        "width": 180,
+        "height": 370.68000000000006,
+        "rotation": 0
+      },
+      "screen": {
+        "id": "phone.screen",
+        "crop": null,
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "x": 8.1,
+        "y": 8.1,
+        "width": 163.8,
+        "height": 354.48,
+        "radius": 10.799999999999999,
+        "aspect": {
+          "width": 390,
+          "height": 844
+        },
+        "fit": "contain",
+        "assetId": null
+      }
+    },
+    {
+      "id": "tablet",
+      "type": "tablet",
+      "label": "Tablet",
+      "visible": true,
+      "geometry": {
+        "x": 805,
+        "y": 730,
+        "width": 260,
+        "height": 200.84999999999997,
+        "rotation": 0
+      },
+      "screen": {
+        "id": "tablet.screen",
+        "crop": null,
+        "viewport": {
+          "width": 1024,
+          "height": 768
+        },
+        "x": 11.7,
+        "y": 11.7,
+        "width": 236.6,
+        "height": 177.45,
+        "radius": 15.6,
+        "aspect": {
+          "width": 4,
+          "height": 3
+        },
+        "fit": "contain",
+        "assetId": null
+      }
+    },
+    {
+      "id": "watch",
+      "type": "watch",
+      "label": "Watch",
+      "visible": false,
+      "geometry": {
+        "x": 1335,
+        "y": 720,
+        "width": 110,
+        "height": 179.05555555555557,
+        "rotation": 0
+      },
+      "screen": {
+        "id": "watch.screen",
+        "crop": null,
+        "viewport": {
+          "width": 198,
+          "height": 242
+        },
+        "x": 11,
+        "y": 33,
+        "width": 88,
+        "height": 107.55555555555556,
+        "radius": 16.5,
+        "aspect": {
+          "width": 9,
+          "height": 11
+        },
+        "fit": "contain",
+        "assetId": null
+      }
+    },
+    {
+      "id": "speaker",
+      "type": "speaker",
+      "label": "Smart speaker",
+      "visible": false,
+      "geometry": {
+        "x": 1460,
+        "y": 730,
+        "width": 100,
+        "height": 125,
+        "rotation": 0
+      },
+      "screen": null
+    }
+  ],
+  "assets": []
+}

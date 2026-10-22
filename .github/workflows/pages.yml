@@ -24,6 +24,8 @@ jobs:
           node --check demo.js
           node --check marketing.js
           node --check calendar.js
+          node --check mockup-model.js
+          node --check mockup-studio.js
       - uses: actions/upload-pages-artifact@v3
         with:
           path: .

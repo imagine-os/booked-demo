@@ -45,3 +45,8 @@ CAL-007,Local chats,Simulated in this browser,Conversation items only; no extern
 CAL-008,Booking calendar reflection,Simulated in this browser,Bookings and reschedules reflected after navigation or Refresh
 CAL-009,Calendar timezone labels,Simulated in this browser,IANA viewing zones; UTC block inputs; DST offsets and continuation labels
 CAL-010,Calendar accessibility,Simulated in this browser,"Keyboard controls, touch and contained mobile scrolling"
+STU-001,Three-step mockup studio,Working browser-local tool,"Independent studio route with brand, device and export steps"
+STU-002,Exact device screenshot slots,Working browser-local tool,Desktop phone tablet watch and screenless speaker; contain and adjustable cover
+STU-003,Browser-local image assets,Working browser-local tool,Local logo character and screenshot decoding; no image upload service
+STU-004,Reusable JSON templates,Working browser-local tool,Stable slots geometry colors and optional embedded raster assets; front-on kit adapter
+STU-005,PNG scene export,Working browser-local tool,1x and 2x export with optional transparent background; original 2D illustration
