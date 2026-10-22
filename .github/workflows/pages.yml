@@ -29,6 +29,8 @@ jobs:
           node --check design-system.js
           node --check home-art-3d.js
           node --check home-presentation.js
+          node --check scheduling.js
+          node --check related-records.js
           node --check meeting-model.js
           node --check meeting-workspace.js
           node --check message-calendar.js

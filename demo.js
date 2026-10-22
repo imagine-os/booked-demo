@@ -30,15 +30,30 @@ const Demo = (() => {
   const busy=(start,end,except)=>{
     const d=new Date(start*1000),h=d.getUTCHours()+d.getUTCMinutes()/60;
     const gap=state.availability.buffer_minutes*60;
-    return (h<13&&h+(end-start)/3600>12)||(d.getUTCDay()===3&&h<15&&h+(end-start)/3600>14)||state.bookings.some(x=>!x.cancelled&&x.id!==except&&x.start<end+gap&&x.end>start-gap)||state.calendar_items.some(x=>x.type==='block'&&x.start<end&&x.end>start);
+    return Scheduling.hostMeetings(state.planning).some(x=>x.start<end+gap&&x.end>start-gap)||(h<13&&h+(end-start)/3600>12)||(d.getUTCDay()===3&&h<15&&h+(end-start)/3600>14)||state.bookings.some(x=>!x.cancelled&&x.id!==except&&x.start<end+gap&&x.end>start-gap)||state.calendar_items.some(x=>x.type==='block'&&x.start<end&&x.end>start);
   };
   return {async request(path,body){
+    // Re-read for changes made by another demo tab. Static storage is still not multi-user atomic authority.
+    try {const latest=JSON.parse(localStorage.getItem(key));if(latest)state=latest;}catch{}
+    state.calendar_items=state.calendar_items||[];
+    state.planning_revision=state.planning_revision||0;
     const url=new URL(path,'http://demo.local'),p=url.pathname;
+    if(p==='/api/planning'||p==='/api/planning/undo'){
+      if(!Number.isInteger(body.expected_revision)||body.expected_revision!==state.planning_revision)throw Error('Planning changed. Refresh before saving this edit.');
+      if(p.endsWith('/undo')&&!state.planning_previous)throw Error('No planning change to undo.');
+      const next=MeetingModel.validate(p.endsWith('/undo')?state.planning_previous:body.data);
+      if(state.planning)for(const m of Scheduling.changed(state.planning,next)){
+        const hits=Scheduling.conflicts(next,{start:m.start,end:m.end,attendeeIds:m.attendees.map(x=>x.attendeeId),excludeMeetingId:m.id},state);
+        if(hits.length)throw Error('Planning conflict: '+hits[0].label);
+      }
+      const previous=state.planning;state.planning=next;state.planning_revision++;state.planning_previous=p.endsWith('/undo')?null:previous||null;state.planning_can_undo=!!state.planning_previous;
+      save();return {saved:true,revision:state.planning_revision};
+    }
     if(p==='/api/state')return structuredClone({...state,now:now()});
     if(p==='/api/calendar/items'){
       if(!['block','task','memo','chat'].includes(body.type)||!String(body.title||'').trim()||body.title.length>100||!Number.isFinite(body.start)||!Number.isFinite(body.end)||body.start>=body.end||body.end-body.start>7*86400||body.start<1577836800||body.end>4133980800)throw Error('Choose a title and valid UTC interval, at most seven days long.');
       const gap=state.availability.buffer_minutes*60;
-      if(body.type==='block'&&(state.bookings.some(x=>!x.cancelled&&x.start<body.end+gap&&x.end>body.start-gap)||state.calendar_items.some(x=>x.type==='block'&&x.start<body.end&&x.end>body.start)))throw Error('This block overlaps a booking, meeting gap, or time block.');
+      if(body.type==='block'&&(Scheduling.hostMeetings(state.planning).some(x=>x.start<body.end+gap&&x.end>body.start-gap)||state.bookings.some(x=>!x.cancelled&&x.start<body.end+gap&&x.end>body.start-gap)||state.calendar_items.some(x=>x.type==='block'&&x.start<body.end&&x.end>body.start)))throw Error('This block overlaps a booking, meeting gap, or time block.');
       const item={...body,title:body.title.trim(),body:String(body.body||'').slice(0,1000),id:id(),done:0};state.calendar_items.push(item);save();return {id:item.id,saved:true};
     }
     if(p==='/api/calendar/action'){

@@ -10,9 +10,12 @@
     "future-integration"
   ],
   "publication": {
-    "commit": "1a69003b5a50035fda8ba42f7ae8ab5a4f6c0101",
+    "commit": "88503cf39977562d5eda5ced31fbf3f51e2c05bf",
     "deployment": "success",
-    "renderedLiveVerification": "Appearance, previews, history and routes verified live; a reported browser uses the Real 3D fallback. Cause under investigation."
+    "run": 39847449976,
+    "cloud3DCause": "This browser session cannot create the context. No module-path or shader failure is indicated.",
+    "live3DRotationInCloudBrowser": false,
+    "renderedLiveVerification": "Previous release live-verified; this build adds checked shared planning and editable fictional metadata. New deployment pending."
   },
   "requests": [
     {
@@ -39,7 +42,7 @@
         "mockup-studio.cjs",
         "mockup-model.cjs"
       ],
-      "notes": "Existing public composition/export tool; purpose relabeling built but unpublished."
+      "notes": "Published secondary presentation tooling, separate from configured invitee preview."
     },
     {
       "id": "ART-001",
@@ -62,7 +65,7 @@
         "design-system.cjs",
         "workspace-tools.cjs"
       ],
-      "notes": "Original Booked foundations, components and patterns; footer/navigation entry pending."
+      "notes": "Original Booked foundations, components and patterns, linked from homepage and workspace footers and navigation; verified live."
     },
     {
       "id": "REL-001",
@@ -169,7 +172,7 @@
         "homepage-appearance.cjs",
         "home-art-3d.cjs"
       ],
-      "notes": "Deployed WebGL geometry renders locally; a reported browser uses fallback. Cause awaits stage-specific live diagnostic readout."
+      "notes": "Actual WebGL renders and rotates in supported local Chromium. The live cloud session reports disabled GL and fails context creation before shaders; fallback verified."
     },
     {
       "id": "HOME-003",
@@ -199,7 +202,7 @@
     {
       "id": "HOME-004",
       "title": "3D initialization diagnostics and compatible-context recovery",
-      "status": "built-unpublished",
+      "status": "live-demo",
       "route": "?",
       "sourceRequest": "owner-real3d-completion-2026-10-22",
       "dependencies": [
@@ -209,8 +212,66 @@
         "home-3d-diagnostics.cjs",
         "home-3d-normal-browser.json"
       ],
-      "notes": "Visible module/version/path/stage/error diagnostics, bounded context fallback, matched shader precision and manual retry. Does not assume the cloud-browser failure is GPU unavailability."
+      "notes": "Published stage diagnostics and retry verified live. Cloud session reports WEBGL_CONTEXT_UNAVAILABLE at context creation, not module or shader failure."
+    },
+    {
+      "id": "REL-003",
+      "title": "Unified planning and booking event model",
+      "status": "built-unpublished",
+      "route": "?workspace=1&tool=meetings-workspace",
+      "sourceRequest": "owner-workspace-tooling-2026-10-22",
+      "dependencies": [
+        "REL-001",
+        "CORE-001"
+      ],
+      "evidence": [
+        "tests/planning-integration.cjs",
+        "tests/test_planning_store.py",
+        "tests/test_planning_contract.py",
+        "tests/related-records.cjs"
+      ],
+      "notes": "Shared persisted planning revision; active Rowan events reserve guest slots and appear in the main calendar. Read-only confirmed bookings appear in planning views and retain management-link authority. Schedule edits/cancel/one-step undo recheck conflicts and protect stale edits."
+    },
+    {
+      "id": "REL-004",
+      "title": "User-managed linked files, recording metadata and transcripts",
+      "status": "built-unpublished",
+      "route": "?workspace=1&tool=meetings-workspace",
+      "sourceRequest": "owner-workspace-tooling-2026-10-22",
+      "dependencies": [
+        "REL-001"
+      ],
+      "evidence": [
+        "tests/planning-integration.cjs",
+        "tests/test_planning_store.py",
+        "tests/test_planning_contract.py",
+        "tests/related-records.cjs"
+      ],
+      "notes": "Create, edit and link fictional file/recording metadata and transcript text; moving a recording carries linked transcripts. Persisted with shared planning state and undo. No media capture, real uploads or transcription service."
     }
   ],
-  "statusAsOf": "Checked source before deployment; published artifact status is recorded in the release receipt."
+  "statusAsOf": "REL-003 and REL-004 built and integration-tested; publication pending",
+  "closeout": {
+    "milestone": "Requested relational demo gaps implemented and checked locally; checked release pending",
+    "remainingRequestedDemoIds": [],
+    "optionalEnhancements": [
+      "Kanban/calendar drag-and-drop",
+      "Custom saved view filters and richer task CRUD/assignee editing",
+      "New fictional contact and attendee-availability editors",
+      "Automatic history inclusion for every future deployment"
+    ],
+    "explicitlyDeferred": [
+      "Real Google Calendar/OAuth and calendar sync",
+      "Real inbox, messaging, email invitations and reminders",
+      "Production identity, tenant permissions and durable shared hosting/enforcement",
+      "Payments, DNS/domain setup and real media services"
+    ],
+    "notClaims": [
+      "Full Calendly or Airtable parity",
+      "Literal pixel perfection or full accessibility certification",
+      "Server-authoritative enforcement from GitHub Pages",
+      "Live WebGL rotation in the disabled cloud session"
+    ]
+  },
+  "snapshotNote": "Build-time status snapshot. Commit references describe prior verified releases; this artifact does not update itself."
 }

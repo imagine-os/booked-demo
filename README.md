@@ -86,7 +86,7 @@ Uploads stay in the current tab's memory. Nothing is uploaded to a server, and t
 
 ## Connected planning, fictional context
 
-**Event workspace** offers list, table, calendar, timeline and task Kanban views over the same local relational data. Assign fictional people as Watcher, Doer, Lead or Lead & Doer; check mock availability, reject conflicting times and choose a common suggestion. Linked task creation and progress work locally. File/recording entries are metadata samples and transcript text is fictional. Planning events do not reserve booking slots.
+**Event workspace** offers list, table, calendar, timeline and task Kanban views over the same local relational data. Assign fictional people as Watcher, Doer, Lead or Lead & Doer; check mock availability, reject conflicting times and choose a common suggestion. Linked task creation and progress work locally. Rowan’s active planning events reserve booking slots and appear in the main calendar; confirmed bookings appear in planning views with their existing private management controls. Create/edit/link fictional file metadata, recording metadata and transcript text. Moving recording metadata carries its linked transcripts. Schedule edits, cancellation and one-step undo check current conflicts; stale edits are rejected. No real file, recording or transcription service is connected.
 
 **Messages · demo** is a separate received-time calendar/list for fictional mail and messages. No inbox is connected and no messages are sent.
 
