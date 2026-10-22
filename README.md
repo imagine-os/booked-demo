@@ -90,7 +90,7 @@ Uploads stay in the current tab's memory. Nothing is uploaded to a server, and t
 
 **Messages · demo** is a separate received-time calendar/list for fictional mail and messages. No inbox is connected and no messages are sent.
 
-[Design system & component library](?workspace=1&tool=design-system) · [Feature ledger JSON](feature-ledger.json). Homepage theme, art-level controls and shipped-version history are planned in the ledger; the raster illustration is not an editable 3D object.
+[Design system & component library](?workspace=1&tool=design-system) · [Feature ledger JSON](feature-ledger.json). The homepage now offers saved light/dark themes and Simple, Graphics and Real 3D art levels. Graphics uses the raster gnome. Real 3D renders procedural WebGL geometry with drag, touch and keyboard rotation; unsupported browsers show a labeled graphics fallback. No automatic 3D motion. A readable history links verified prior public commits and deployments. Interactive previews load the actual fictional booking and workspace screens. Workspace navigation updates shareable URLs and supports browser Back/Forward.
 
 ## Room to grow
 

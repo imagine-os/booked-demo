@@ -10,15 +10,15 @@
     "future-integration"
   ],
   "publication": {
-    "commit": "ff4803fac38dc25198baef151301589d243fbb62",
+    "commit": "c0262343c43d49a14108217f04ec5c69691d3061",
     "deployment": "success",
-    "renderedLiveVerification": "parent browser verified prior studio; current correction unpublished"
+    "renderedLiveVerification": "Parent browser verified prior tools release; current homepage appearance work unpublished."
   },
   "requests": [
     {
       "id": "PRE-001",
       "title": "Configured invitee preview",
-      "status": "built-unpublished",
+      "status": "live-demo",
       "route": "?workspace=1",
       "sourceRequest": "owner-preview-purpose-2026-10-22",
       "dependencies": [],
@@ -44,7 +44,7 @@
     {
       "id": "ART-001",
       "title": "Transparent raster gnome replacement",
-      "status": "built-unpublished",
+      "status": "live-demo",
       "route": "?workspace=1&tool=mockup",
       "sourceRequest": "owner-visual-quality-2026-10-22",
       "dependencies": [],
@@ -54,7 +54,7 @@
     {
       "id": "DS-001",
       "title": "Original design system and components",
-      "status": "built-unpublished",
+      "status": "live-demo",
       "route": "?workspace=1&tool=design-system",
       "sourceRequest": "owner-workspace-tooling-2026-10-22",
       "dependencies": [],
@@ -67,7 +67,7 @@
     {
       "id": "REL-001",
       "title": "Relational event workspace",
-      "status": "built-unpublished",
+      "status": "live-demo",
       "route": "?workspace=1&tool=meetings-workspace",
       "sourceRequest": "owner-workspace-tooling-2026-10-22",
       "dependencies": [],
@@ -80,7 +80,7 @@
     {
       "id": "REL-002",
       "title": "Attendee conflict checks and common times",
-      "status": "built-unpublished",
+      "status": "live-demo",
       "route": "?workspace=1&tool=meetings-workspace",
       "sourceRequest": "owner-workspace-tooling-2026-10-22",
       "dependencies": [
@@ -95,7 +95,7 @@
     {
       "id": "VIEW-001",
       "title": "Calendar, table, list, timeline and Kanban views",
-      "status": "built-unpublished",
+      "status": "live-demo",
       "route": "?workspace=1&tool=meetings-workspace",
       "sourceRequest": "owner-workspace-tooling-2026-10-22",
       "dependencies": [
@@ -109,7 +109,7 @@
     {
       "id": "MAIL-001",
       "title": "Mail and messages calendar",
-      "status": "built-unpublished",
+      "status": "live-demo",
       "route": "?workspace=1&tool=messages",
       "sourceRequest": "owner-workspace-tooling-2026-10-22",
       "dependencies": [],
@@ -144,36 +144,57 @@
     {
       "id": "HOME-001",
       "title": "Homepage theme and art-level controls",
-      "status": "planned",
+      "status": "built-unpublished",
       "route": "?",
       "sourceRequest": "owner-homepage-polish-2026-10-22",
       "dependencies": [
         "ART-001"
       ],
-      "evidence": [],
-      "notes": "Persistent light/dark and Simple / Graphics / Real 3D controls. Follow current checked preview/design-system release."
+      "evidence": [
+        "homepage-appearance.cjs",
+        "home-art-3d.cjs"
+      ],
+      "notes": "Persistent homepage light/dark and Simple / Graphics / Real 3D choices; booking data unchanged."
     },
     {
       "id": "HOME-002",
       "title": "Interactive real 3D homepage option",
-      "status": "planned",
+      "status": "built-unpublished",
       "route": "?",
       "sourceRequest": "owner-homepage-polish-2026-10-22",
       "dependencies": [
         "HOME-001"
       ],
-      "evidence": [],
-      "notes": "Must render real interactive geometry with reduced-motion/performance fallback; raster images must not be labeled 3D."
+      "evidence": [
+        "homepage-appearance.cjs",
+        "home-art-3d.cjs"
+      ],
+      "notes": "Actual interactive WebGL geometry with perspective, depth, pointer/touch/keyboard input, no idle animation and explicit graphics fallback."
     },
     {
       "id": "HOME-003",
       "title": "Honest shipped-version history",
-      "status": "planned",
+      "status": "built-unpublished",
       "route": "?",
       "sourceRequest": "owner-homepage-polish-2026-10-22",
       "dependencies": [],
-      "evidence": [],
-      "notes": "Reference actual known shipped source/artifact checkpoints; no invented versions or completion percentage."
+      "evidence": [
+        "homepage-appearance.cjs",
+        "home-art-3d.cjs"
+      ],
+      "notes": "Readable actual public-release commit and successful deployment links, with downloadable history JSON."
+    },
+    {
+      "id": "NAV-001",
+      "title": "Shareable workspace routes and history navigation",
+      "status": "built-unpublished",
+      "route": "?workspace=1",
+      "sourceRequest": "owner-live-navigation-qa-2026-10-22",
+      "dependencies": [],
+      "evidence": [
+        "homepage-appearance.cjs"
+      ],
+      "notes": "Synchronize supported tool/event routes, deep links and browser Back/Forward."
     }
   ],
   "statusAsOf": "Checked source before deployment; published artifact status is recorded in the release receipt."

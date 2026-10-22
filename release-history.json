@@ -1,0 +1,9 @@
+{
+  "version": "booked-release-history/1",
+  "scope": "Verified public releases before the homepage appearance update",
+  "releases": [
+    {"id":"tools-20261022","commit":"c0262343c43d49a14108217f04ec5c69691d3061","deploymentRun":39841456904,"status":"deployed","features":["Configured invitee preview","Component library","Relational event views","Mock attendee conflicts","Fictional message calendar"]},
+    {"id":"studio-20261022","commit":"ff4803fac38dc25198baef151301589d243fbb62","deploymentRun":39820728466,"status":"deployed","features":["Browser-local screenshot compositions","Exact-ratio slots","PNG and reusable JSON exports"]},
+    {"id":"calendar-20261022","commit":"b4a827f800e24256985607d41fe51f277afbc769","status":"deployed","features":["Calendar month/week/day views","Events tasks memos and local chats","Unavailable blocks"]}
+  ]
+}

@@ -1,0 +1,83 @@
+/* Original procedural WebGL art. No external libraries, images, network or calendar connection. */
+(function(root){'use strict';
+ const PALETTES={light:{background:'#fffef9',paper:'#fffdf3',edge:'#2d3c58',ink:'#34445f',amber:'#ffbb00',green:'#7b9c3d',pale:'#e4ead5',peach:'#e9aa7b',beard:'#f7f5e8',shoe:'#34445f',ground:'#e8ecd9'},dark:{background:'#162333',paper:'#e6e4d9',edge:'#314863',ink:'#33465d',amber:'#ffcf47',green:'#89a84c',pale:'#405548',peach:'#e8ac82',beard:'#eeeade',shoe:'#1e3045',ground:'#243c43'}};
+ const DEFAULT={yaw:-.20,pitch:.10},LIMIT=42000;
+ const rgb=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16)/255);
+ const I=()=>new Float32Array([1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1]);
+ function multiply(a,b){const out=new Float32Array(16);for(let col=0;col<4;col++)for(let row=0;row<4;row++)for(let k=0;k<4;k++)out[col*4+row]+=a[k*4+row]*b[col*4+k];return out;}
+ function rotation(x,y){const cx=Math.cos(x),sx=Math.sin(x),cy=Math.cos(y),sy=Math.sin(y);return multiply(new Float32Array([cy,0,-sy,0,0,1,0,0,sy,0,cy,0,0,0,0,1]),new Float32Array([1,0,0,0,0,cx,sx,0,0,-sx,cx,0,0,0,0,1]));}
+ function perspective(aspect,distance){const f=1/Math.tan(35*Math.PI/360),near=.1,far=50;const p=new Float32Array([f/aspect,0,0,0,0,f,0,0,0,0,(far+near)/(near-far),-1,0,0,2*far*near/(near-far),0]);const view=I();view[13]=-.10;view[14]=-distance;return multiply(p,view);}
+ function normalize(a){const length=Math.hypot(...a)||1;return a.map(x=>x/length);}
+ function makeGeometry(){const vertices=[],materials=[];
+  function triangle(a,b,c,na,nb,nc,color){for(const[p,n]of[[a,na],[b,nb],[c,nc]]){vertices.push(...p,...n);materials.push(color);}}
+  function patch(fn,uCount,vCount,color){for(let u=0;u<uCount;u++)for(let v=0;v<vCount;v++){const a=fn(u/uCount,v/vCount),b=fn((u+1)/uCount,v/vCount),c=fn((u+1)/uCount,(v+1)/vCount),d=fn(u/uCount,(v+1)/vCount);triangle(a.p,b.p,c.p,a.n,b.n,c.n,color);triangle(a.p,c.p,d.p,a.n,c.n,d.n,color);}}
+  function sphere(center,scale,color,segments=18,rings=10){patch((u,v)=>{const phi=u*Math.PI*2,theta=v*Math.PI,n=[Math.sin(theta)*Math.cos(phi),Math.cos(theta),Math.sin(theta)*Math.sin(phi)];return {p:n.map((x,i)=>center[i]+x*scale[i]),n:normalize(n.map((x,i)=>x/scale[i]))};},segments,rings,color);}
+  function roundedBox(center,size,radius,color){const half=size.map(x=>x/2);radius=Math.min(radius,...half);const inner=half.map(x=>Math.max(0,x-radius));for(let axis=0;axis<3;axis++)for(const sign of[-1,1]){const a=(axis+1)%3,b=(axis+2)%3;patch((u,v)=>{const q=[0,0,0];q[axis]=half[axis]*sign;q[a]=(u*2-1)*half[a];q[b]=(v*2-1)*half[b];const base=q.map((x,i)=>Math.max(-inner[i],Math.min(inner[i],x))),n=normalize(q.map((x,i)=>x-base[i]));return {p:base.map((x,i)=>center[i]+x+n[i]*radius),n};},4,4,color);}}
+  function cone(center,height,radius,color){const sides=26;for(let i=0;i<sides;i++){const a=i/sides*Math.PI*2,b=(i+1)/sides*Math.PI*2,pa=[center[0]+radius*Math.cos(a),center[1],center[2]+radius*Math.sin(a)],pb=[center[0]+radius*Math.cos(b),center[1],center[2]+radius*Math.sin(b)],tip=[center[0]-.12,center[1]+height,center[2]],na=normalize([Math.cos(a),radius/height,Math.sin(a)]),nb=normalize([Math.cos(b),radius/height,Math.sin(b)]);triangle(pa,pb,tip,na,nb,normalize(na.map((x,j)=>(x+nb[j])/2)),color);triangle(pa,[...center],pb,[0,-1,0],[0,-1,0],[0,-1,0],color);}}
+  function ring(center,radius,tube,color){patch((u,v)=>{const a=u*Math.PI*2,b=v*Math.PI*2,n=[Math.sin(b),Math.cos(a)*Math.cos(b),Math.sin(a)*Math.cos(b)];return {p:[center[0]+tube*n[0],center[1]+radius*Math.cos(a)+tube*n[1],center[2]+radius*Math.sin(a)+tube*n[2]],n};},22,7,color);}
+  // A low plinth and flattened geometric shadows anchor all objects in the same space.
+  sphere([0,-1.25,0],[2.23,.07,1.05],'ground',28,8);
+  sphere([.5,-1.16,0],[1.25,.018,.55],'pale',22,6);
+  // Real rounded calendar shell, paper sheet, divider and raised date buttons.
+  roundedBox([.45,.12,-.13],[2.52,2.48,.23],.14,'edge');
+  roundedBox([.45,.15,.015],[2.34,2.27,.10],.095,'paper');
+  roundedBox([.45,.80,.083],[2.05,.34,.04],.018,'pale');
+  for(let i=0;i<3;i++)roundedBox([-.24+i*.38,.80,.112],[.24,.055,.025],.012,'ink');
+  for(let row=0;row<3;row++)for(let col=0;col<4;col++){const x=-.34+col*.52,y=.33-row*.49,selected=row===1&&col===2;
+   if(selected){sphere([x,y,.135],[.195,.195,.055],'amber',20,10);sphere([x,y,.195],[.035,.035,.014],'ink',12,6);}
+   else roundedBox([x,y,.112],[.28,.20,.035],.035,row===2&&col===0?'green':'pale');
+  }
+  ring([-.22,1.29,-.01],.18,.045,'amber');ring([1.12,1.29,-.01],.18,.045,'amber');
+  // Original gnome assembled from separate shaded three-dimensional solids.
+  sphere([-1.43,-1.10,.40],[.22,.105,.30],'shoe');sphere([-1.03,-1.10,.40],[.22,.105,.30],'shoe');
+  sphere([-1.23,-.70,.30],[.38,.43,.30],'amber');roundedBox([-1.23,-.85,.55],[.59,.10,.065],.025,'edge');roundedBox([-1.23,-.85,.60],[.13,.13,.045],.02,'amber');
+  sphere([-1.58,-.53,.32],[.15,.31,.14],'amber');sphere([-1.69,-.35,.40],[.105,.115,.10],'peach');
+  sphere([-.88,-.50,.36],[.14,.28,.14],'amber');sphere([-.82,-.28,.43],[.105,.115,.10],'peach');
+  sphere([-1.23,-.12,.32],[.29,.31,.26],'peach');sphere([-1.23,-.36,.51],[.32,.39,.17],'beard',22,12);
+  sphere([-1.38,-.10,.54],[.10,.075,.10],'beard');sphere([-1.08,-.10,.54],[.10,.075,.10],'beard');
+  sphere([-1.23,-.12,.67],[.105,.088,.09],'peach');
+  cone([-1.23,.04,.30],.94,.42,'green');sphere([-1.23,.04,.30],[.44,.09,.31],'green',22,10);
+  sphere([-1.35,.93,.30],[.115,.12,.11],'green');
+  // Restrained floating geometric accents preserve generous space around the object.
+  sphere([1.97,.88,-.20],[.11,.11,.11],'amber');sphere([1.90,-.82,.35],[.13,.13,.13],'green');
+  if(materials.length>LIMIT)throw Error('Geometry budget exceeded.');return {vertices:new Float32Array(vertices),materials,count:materials.length};
+ }
+ const GEOMETRY=makeGeometry();
+ function mount(canvas,options={}){
+  if(!canvas||typeof canvas.getContext!=='function')throw Error('Mount the art on a canvas.');
+  const saved={tabindex:canvas.getAttribute('tabindex'),role:canvas.getAttribute('role'),label:canvas.getAttribute('aria-label'),touch:canvas.style.touchAction};
+  canvas.tabIndex=canvas.hasAttribute('tabindex')?canvas.tabIndex:0;canvas.setAttribute('role','img');if(!canvas.hasAttribute('aria-label'))canvas.setAttribute('aria-label','Interactive 3D Booked calendar sculpture. Drag to rotate, or use arrow keys. Home resets the view.');canvas.style.touchAction='pan-y';
+  let theme=options.theme==='dark'?'dark':'light',yaw=DEFAULT.yaw,pitch=DEFAULT.pitch,disposed=false,lost=false,available=false,renderCount=0,drag=null,resources=null,lastWidth=0,lastHeight=0,status='initializing';
+  const report=(state,message)=>{status=state;try{options.onStatus?.({state,message,supported:available,contextLost:lost,actual3D:available});}catch{}};
+  const gl=canvas.getContext('webgl',{alpha:false,antialias:true,depth:true,stencil:false,preserveDrawingBuffer:false,powerPreference:'low-power'});
+  function state(){return {available,disposed,contextLost:lost,status,theme,yaw,pitch,renderCount,vertexCount:GEOMETRY.count,pixelRatio:Math.min(1.5,typeof devicePixelRatio==='number'?devicePixelRatio:1),renderer:'WebGL procedural triangle geometry',perspective:true,depthTest:true,lighting:'directional key + fill + ambient',camera:{yaw,pitch},idleAnimation:false};}
+  function release(){if(!gl||!resources)return;for(const buffer of resources.buffers)gl.deleteBuffer(buffer);gl.deleteProgram(resources.program);for(const shader of resources.shaders)gl.deleteShader(shader);resources=null;}
+  function shader(type,source){const s=gl.createShader(type);gl.shaderSource(s,source);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS)){gl.deleteShader(s);throw Error('The 3D shader could not compile.');}return s;}
+  function init(){
+   const shaders=[];let program=null;const buffers=[];try{
+    shaders.push(shader(gl.VERTEX_SHADER,'attribute vec3 aPosition;attribute vec3 aNormal;attribute vec3 aColor;uniform mat4 uMatrix;uniform mat4 uRotation;varying vec3 vNormal;varying vec3 vColor;void main(){gl_Position=uMatrix*vec4(aPosition,1.0);vNormal=mat3(uRotation)*aNormal;vColor=aColor;}'));
+    shaders.push(shader(gl.FRAGMENT_SHADER,'precision mediump float;varying vec3 vNormal;varying vec3 vColor;void main(){vec3 n=normalize(vNormal);float key=max(dot(n,normalize(vec3(-0.5,0.9,1.0))),0.0);float fill=max(dot(n,normalize(vec3(0.8,0.2,-0.5))),0.0);float rim=pow(1.0-max(n.z,0.0),3.0)*0.055;vec3 color=vColor*(0.52+0.43*key+0.13*fill)+vec3(rim);gl_FragColor=vec4(color,1.0);}'));
+    program=gl.createProgram();shaders.forEach(s=>gl.attachShader(program,s));gl.linkProgram(program);if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw Error('The 3D program could not link.');gl.useProgram(program);
+    const vertex=gl.createBuffer(),color=gl.createBuffer();buffers.push(vertex,color);gl.bindBuffer(gl.ARRAY_BUFFER,vertex);gl.bufferData(gl.ARRAY_BUFFER,GEOMETRY.vertices,gl.STATIC_DRAW);
+    for(const[name,size,offset]of[['aPosition',3,0],['aNormal',3,12]]){const a=gl.getAttribLocation(program,name);gl.enableVertexAttribArray(a);gl.vertexAttribPointer(a,size,gl.FLOAT,false,24,offset);}
+    const colorLocation=gl.getAttribLocation(program,'aColor');gl.bindBuffer(gl.ARRAY_BUFFER,color);gl.enableVertexAttribArray(colorLocation);gl.vertexAttribPointer(colorLocation,3,gl.FLOAT,false,0,0);
+    resources={program,buffers,shaders,color,matrix:gl.getUniformLocation(program,'uMatrix'),rotation:gl.getUniformLocation(program,'uRotation')};setColors();gl.enable(gl.DEPTH_TEST);gl.depthFunc(gl.LEQUAL);gl.disable(gl.CULL_FACE);available=true;report('ready','Interactive procedural 3D is ready.');
+   }catch(e){for(const b of buffers)gl.deleteBuffer(b);if(program)gl.deleteProgram(program);for(const s of shaders)gl.deleteShader(s);resources=null;available=false;report('unavailable',e.message);}
+  }
+  function setColors(){if(!resources)return;const palette=PALETTES[theme],cache=Object.fromEntries(Object.entries(palette).map(([k,v])=>[k,rgb(v)])),colors=new Float32Array(GEOMETRY.count*3);GEOMETRY.materials.forEach((key,i)=>colors.set(cache[key],i*3));gl.bindBuffer(gl.ARRAY_BUFFER,resources.color);gl.bufferData(gl.ARRAY_BUFFER,colors,gl.STATIC_DRAW);}
+  function draw(){if(disposed||lost||!available||!resources)return;const rect=canvas.getBoundingClientRect(),width=Math.max(1,Math.min(4096,Math.round((rect.width||canvas.clientWidth||600)*state().pixelRatio))),height=Math.max(1,Math.min(4096,Math.round((rect.height||canvas.clientHeight||480)*state().pixelRatio)));if(canvas.width!==width)canvas.width=width;if(canvas.height!==height)canvas.height=height;lastWidth=width;lastHeight=height;gl.viewport(0,0,width,height);const background=rgb(PALETTES[theme].background);gl.clearColor(...background,1);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);gl.useProgram(resources.program);const rot=rotation(pitch,yaw),aspect=width/height,distance=7.5*Math.max(1,1.20/aspect);gl.uniformMatrix4fv(resources.rotation,false,rot);gl.uniformMatrix4fv(resources.matrix,false,multiply(perspective(aspect,distance),rot));gl.drawArrays(gl.TRIANGLES,0,GEOMETRY.count);renderCount++;}
+  function command(dx,dy){yaw=Math.max(-.85,Math.min(.85,yaw+dx));pitch=Math.max(-.32,Math.min(.42,pitch+dy));draw();}
+  function reset(){if(disposed)return;yaw=DEFAULT.yaw;pitch=DEFAULT.pitch;draw();}
+  function down(e){if(disposed||!available||lost||e.isPrimary===false||e.button!==0)return;drag={id:e.pointerId,x:e.clientX,y:e.clientY,startX:e.clientX,startY:e.clientY,captured:false};canvas.focus({preventScroll:true});if(e.pointerType!=='touch'){canvas.setPointerCapture?.(e.pointerId);drag.captured=true;}}
+  function move(e){if(!drag||drag.id!==e.pointerId)return;const totalX=e.clientX-drag.startX,totalY=e.clientY-drag.startY;if(e.pointerType==='touch'&&!drag.captured){if(Math.abs(totalY)>Math.abs(totalX)&&Math.abs(totalY)>8){drag=null;return;}if(Math.abs(totalX)<8)return;canvas.setPointerCapture?.(e.pointerId);drag.captured=true;}if(drag.captured&&e.cancelable)e.preventDefault();command((e.clientX-drag.x)*.006,(e.clientY-drag.y)*.005);drag.x=e.clientX;drag.y=e.clientY;}
+  function up(e){if(drag?.id!==e.pointerId)return;if(canvas.hasPointerCapture?.(e.pointerId))canvas.releasePointerCapture(e.pointerId);drag=null;}
+  function key(e){const action={ArrowLeft:[-.06,0],ArrowRight:[.06,0],ArrowUp:[0,-.04],ArrowDown:[0,.04]}[e.key];if(e.key==='Home'){e.preventDefault();reset();}else if(action){e.preventDefault();command(...action);}}
+  function contextLost(e){e.preventDefault();lost=true;available=false;drag=null;report('context-lost','3D rendering paused. A static fallback can be shown while the graphics context recovers.');}
+  function restored(){if(disposed)return;lost=false;release();init();draw();}
+  const listeners=[['pointerdown',down],['pointermove',move,{passive:false}],['pointerup',up],['pointercancel',up],['lostpointercapture',up],['keydown',key],['webglcontextlost',contextLost],['webglcontextrestored',restored]];for(const[name,fn,opt]of listeners)canvas.addEventListener(name,fn,opt);
+  let observer=null;const resize=()=>{const r=canvas.getBoundingClientRect(),ratio=state().pixelRatio;if(Math.round(r.width*ratio)!==lastWidth||Math.round(r.height*ratio)!==lastHeight)draw();};if(typeof ResizeObserver!=='undefined'){observer=new ResizeObserver(resize);observer.observe(canvas);}else if(typeof window!=='undefined')window.addEventListener('resize',resize);
+  if(gl){init();draw();}else report('unavailable','WebGL is unavailable. Show a static illustration instead.');
+  return Object.freeze({dispose(){if(disposed)return;disposed=true;available=false;drag=null;observer?.disconnect();if(typeof window!=='undefined')window.removeEventListener('resize',resize);for(const[name,fn,opt]of listeners)canvas.removeEventListener(name,fn,opt);release();for(const[name,value]of[['tabindex',saved.tabindex],['role',saved.role],['aria-label',saved.label]])if(value===null)canvas.removeAttribute(name);else canvas.setAttribute(name,value);canvas.style.touchAction=saved.touch;report('disposed','3D resources released.');},reset,setTheme(value){if(disposed)return;if(!Object.hasOwn(PALETTES,value))throw Error('Choose light or dark theme.');if(value===theme)return;theme=value;if(!lost)setColors();draw();},getState:state});
+ }
+ const api=Object.freeze({mount});if(typeof module==='object'&&module.exports)module.exports=api;else root.BookedHome3D=api;
+})(typeof globalThis!=='undefined'?globalThis:this);

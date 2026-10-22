@@ -59,6 +59,7 @@ VIEW-001,"Calendar, table, list, timeline and Kanban views",Simulated in this br
 MAIL-001,Mail and messages calendar,Simulated in this browser,"Separate bonus module, fictional content only; no connected inbox."
 CORE-001,Booking and calendar demo,Planned,Fictional browser simulation. Local SQLite enforcement is separate from static demo.
 INT-001,"Real calendars, identity and invitations",Planned,Deferred; requires production authentication and durable shared enforcement.
-HOME-001,Homepage theme and art-level controls,Planned,Persistent light/dark and Simple / Graphics / Real 3D controls. Follow current checked preview/design-system release.
-HOME-002,Interactive real 3D homepage option,Planned,Must render real interactive geometry with reduced-motion/performance fallback; raster images must not be labeled 3D.
-HOME-003,Honest shipped-version history,Planned,Reference actual known shipped source/artifact checkpoints; no invented versions or completion percentage.
+HOME-001,Homepage theme and art-level controls,Simulated in this browser,Persistent homepage light/dark and Simple / Graphics / Real 3D choices; booking data unchanged.
+HOME-002,Interactive real 3D homepage option,Simulated in this browser,"Actual interactive WebGL geometry with perspective, depth, pointer/touch/keyboard input, no idle animation and explicit graphics fallback."
+HOME-003,Honest shipped-version history,Simulated in this browser,"Readable actual public-release commit and successful deployment links, with downloadable history JSON."
+NAV-001,Shareable workspace routes and history navigation,Simulated in this browser,"Synchronize supported tool/event routes, deep links and browser Back/Forward."
